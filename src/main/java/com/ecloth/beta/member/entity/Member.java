@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity(name = "MEMBER")
 @Getter
@@ -70,15 +72,9 @@ public class Member extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (MemberRole.ADMIN.equals(memberRole)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getRole()));
-        } else if (MemberRole.KAKAO_MEMBER.equals(memberRole)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRole.KAKAO_MEMBER.getRole()));
-        } else {
-            authorities.add(new SimpleGrantedAuthority(MemberRole.EMAIL_MEMBER.getRole()));
-        }
-        return authorities;
+        return Stream.of(memberRole)
+                .map(role -> new SimpleGrantedAuthority(role.getRole()))
+                .collect(Collectors.toList());
     }
 
     @Override

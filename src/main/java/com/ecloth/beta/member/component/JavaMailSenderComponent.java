@@ -1,4 +1,4 @@
-package com.ecloth.beta.component;
+package com.ecloth.beta.member.component;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import lombok.RequiredArgsConstructor;

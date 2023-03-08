@@ -1,6 +1,6 @@
 package com.ecloth.beta.member.service;
 
-import com.ecloth.beta.component.JavaMailSenderComponent;
+import com.ecloth.beta.member.component.JavaMailSenderComponent;
 import com.ecloth.beta.member.dto.MemberRegisterDto;
 import com.ecloth.beta.member.entity.Member;
 import com.ecloth.beta.member.exception.ErrorCode;
