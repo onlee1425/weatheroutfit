@@ -1,16 +1,23 @@
 package com.ecloth.beta.follow.dto;
 
 import com.ecloth.beta.follow.entity.Follow;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.io.Serializable;
 
 public class Following {
 
     @AllArgsConstructor
     @Builder
     @Getter
-    public static class Request {
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public static class Request implements Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         private Long targetId;
         @Builder.Default
@@ -27,8 +34,10 @@ public class Following {
     @AllArgsConstructor
     @Builder
     @Getter
-    public static class Response {
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public static class Response implements Serializable{
 
+        private static final long serialVersionUID = 1L;
         private Long targetId;
         private boolean followStatus;
 

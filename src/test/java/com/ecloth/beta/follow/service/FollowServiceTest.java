@@ -20,10 +20,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+
 import static com.ecloth.beta.follow.exception.ErrorCode.FOLLOW_TARGET_NOT_FOUND;
 import static com.ecloth.beta.follow.type.PointDirection.FOLLOWERS;
 import static com.ecloth.beta.follow.type.PointDirection.FOLLOWS;
@@ -238,7 +240,7 @@ class FollowServiceTest {
         given(memberRepository.findByEmail(anyString()))
                 .willReturn(Optional.ofNullable(requester));
 
-        given(followRepository.findAllByTargetId(request.getRequesterId(), pageRequest))
+        given(followRepository.findAllByTargetId(requester.getId(), pageRequest))
                 .willReturn(sampleFollowers(requester.getId(), pageRequest, 5));
 
         given(memberRepository.findById(anyLong()))
@@ -251,7 +253,7 @@ class FollowServiceTest {
         List<FollowMember> followMembers = response.getFollowList();
         Assertions.assertEquals(followMembers.size(), 5);
         Assertions.assertEquals(response.getPointDirection(), FOLLOWERS.name());
-        Assertions.assertEquals(response.getRequesterId(), request.getRequesterId());
+        Assertions.assertEquals(response.getRequesterId(), requester.getId());
 
     }
 
@@ -287,7 +289,6 @@ class FollowServiceTest {
 
     FollowList.Request sampleGetFollowListRequest(Long requesterId, PointDirection dir) {
         return FollowList.Request.builder()
-                .requesterId(requesterId)
                 .pointDirection(dir.name())
                 .pageNumber(1)
                 .recordSize(5)

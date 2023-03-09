@@ -2,10 +2,13 @@ package com.ecloth.beta.follow.dto;
 
 import com.ecloth.beta.follow.entity.Follow;
 import com.ecloth.beta.follow.entity.Member;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 
 public class FollowList {
@@ -13,9 +16,11 @@ public class FollowList {
     @AllArgsConstructor
     @Builder
     @Getter
-    public static class Request {
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public static class Request implements Serializable {
 
-        private Long requesterId;
+        private static final long serialVersionUID = 1L;
+
         @NotBlank
         private String pointDirection;
         @Builder.Default
@@ -32,7 +37,10 @@ public class FollowList {
     @AllArgsConstructor
     @Builder
     @Getter
-    public static class Response {
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    public static class Response implements Serializable{
+
+        private static final long serialVersionUID = 1L;
 
         private Long requesterId;
         private String pointDirection;
@@ -62,7 +70,10 @@ public class FollowList {
         @Getter
         @Setter
         @Builder
-        public static class FollowMember{
+        @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+        public static class FollowMember implements Serializable{
+
+            private static final long serialVersionUID = 1L;
 
             private Long target_id;
             private String email;

@@ -5,6 +5,8 @@ import com.ecloth.beta.follow.dto.Following;
 import com.ecloth.beta.follow.exception.FollowException;
 import com.ecloth.beta.follow.service.FollowService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,7 @@ public class FollowController {
 
     @GetMapping("/follow")
     public ResponseEntity<Following.Response> getFollowStatus(@ApiIgnore Principal principal,
-                                             @RequestParam Long targetId){
+                                                             @RequestParam Long targetId){
 
         Following.Response response = followService.getFollowStatus(principal.getName(), targetId);
 
@@ -46,14 +48,14 @@ public class FollowController {
 
     @GetMapping("/follows")
     public ResponseEntity<FollowList.Response> getFollowList(@ApiIgnore Principal principal,
-                                           FollowList.Request request){
+                                                             @RequestBody FollowList.Request request){
 
         FollowList.Response response = followService.getFollowList(principal.getName(), request);
 
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/follow")
+    @PatchMapping("/follow")
     public ResponseEntity<Following.Response> unfollow(@ApiIgnore Principal principal,
                                                         @RequestBody Following.Request request){
 
